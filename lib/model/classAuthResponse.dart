@@ -1,33 +1,40 @@
+
 class AuthResponse {
-  final String accessToken;
-  final String refreshToken;
-  final String username;
-  final String email;
-  final String firstName;
-  final String lastName;
-  final String gender;
+    String? email;
+    dynamic mobileNumber;
+    String? password;
+    String? token;
+    String? refreshToken;
+    dynamic fcmToken;
+    bool? trustDevice;
 
-  AuthResponse({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.username, 
-    required this.email, 
-    required this.firstName, 
-    required this.lastName, 
-    required this.gender, 
+    AuthResponse({
+        this.email,
+        this.mobileNumber,
+        this.password,
+        this.token,
+        this.refreshToken,
+        this.fcmToken,
+        this.trustDevice,
+    });
 
-
-      });
-
-  factory AuthResponse.fromJson(Map<String, dynamic> json) {
-    return AuthResponse(
-      accessToken: json['accessToken'],
-      refreshToken: json['refreshToken'],
-      username: json['username'],
-      email: json['email'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      gender: json['gender'],
+    factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
+        email: json["email"],
+        mobileNumber: json["mobileNumber"],
+        password: json["password"],
+        token: json["token"],
+        refreshToken: json["refreshToken"],
+        fcmToken: json["fcmToken"],
+        trustDevice: json["trustDevice"],
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "email": email,
+        "mobileNumber": mobileNumber,
+        "password": password,
+        "token": token,
+        "refreshToken": refreshToken,
+        "fcmToken": fcmToken,
+        "trustDevice": trustDevice,
+    };
 }

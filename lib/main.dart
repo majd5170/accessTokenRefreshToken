@@ -10,9 +10,7 @@ void main() {
   final storage = FlutterSecureStorage();
   final dio = Dio();
   final authRepository = AuthRepository(dio: dio, storage: storage);
-  
   dio.interceptors.add(AuthInterceptor(authRepository));
-
   runApp(MyApp(authRepository: authRepository));
 }
 
@@ -26,6 +24,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthCubit(authRepository),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: LoginPage(),
       ),
     );

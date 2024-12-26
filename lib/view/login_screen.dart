@@ -4,7 +4,7 @@ import 'package:testrefrashtoken/cubit/auth_cubit.dart';
 import 'package:testrefrashtoken/view/home_screen.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -15,23 +15,21 @@ class LoginPage extends StatelessWidget {
         listener: (context, state) {
           if (state is AuthAuthenticated) {
             ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Login successful! Token: ${state.authResponse}')),  
+                      SnackBar(content: Text('Login successful! Token: ${state.authResponse.token}')),  
            );
                   Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
+              builder: (context) =>  UserListPage(),
             ),
           );
-          //  print('ccessful! Token: ${state.authResponse.accessToken}');
-          //  print('ccessful! Token: ${state.authResponse.accessToken}');
-           print('ccessful! Token: ${state.authResponse.username}');
-           print('ccessful! Token: ${state.authResponse.email}');
-           print('ccessful! Token: ${state.authResponse.firstName}');
-           print('ccessful! Token: ${state.authResponse.lastName}');
-           print('ccessful! Token: ${state.authResponse.gender}');
-            // Navigate to the home page or show success message
+           print(' ${state.authResponse.trustDevice}');
+           print(' ${state.authResponse.token}');
+           print(' ${state.authResponse.refreshToken}');
+           print(' ${state.authResponse.password}');
+           print(' ${state.authResponse.mobileNumber}');
+           print(' ${state.authResponse.fcmToken}');
+           print(' ${state.authResponse.email}');
           } else if (state is AuthError) {
-            // Show error message
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
           }
         },
@@ -44,8 +42,8 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 TextField(
-                  controller: usernameController,
-                  decoration: InputDecoration(labelText: 'Username'),
+                  controller: emailController,
+                  decoration: InputDecoration(labelText: 'email'),
                 ),
                 TextField(
                   controller: passwordController,
@@ -55,9 +53,9 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    final username = usernameController.text;
+                    final email = emailController.text;
                     final password = passwordController.text;
-                    context.read<AuthCubit>().login(username, password);
+                    context.read<AuthCubit>().login(email, password);
                   },
                   child: Text('Login'),
                 ),
